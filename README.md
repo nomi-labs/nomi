@@ -1,19 +1,54 @@
 # Nomi
 
-> AI for Everyone — Personal intelligence that knows you.
+> **AI for Everyone — Personal intelligence that truly knows you.**
 
-Nomi is an AI ecosystem built around one belief: every person deserves an AI that truly knows them. Not a chatbot that resets every conversation. Not a generic assistant. A personal AI that remembers, learns, and grows with you over time.
+Nomi is an AI ecosystem built around one belief:
+
+**Every person deserves a personal AI that understands them.**
+
+Not a chatbot that resets every conversation.
+Not a generic assistant.
+
+But an intelligence that **remembers, learns, and grows with you over time.**
 
 ---
 
-## Ecosystem
+# Vision
 
-Nomi is composed of three layers. Each layer is an independent service with a single responsibility.
+The future of AI is not one super-intelligence.
+
+It is **billions of personal intelligences — one for every human.**
+
+An AI that understands your life, remembers your context, and evolves with you.
+
+Today's assistants forget everything.
+Every conversation starts from zero.
+
+We believe AI should be different.
+
+A personal AI should:
+
+* remember what matters to you
+* understand your goals and habits
+* learn from your decisions
+* become more useful over time
+
+AI should not be something you occasionally ask questions to.
+
+It should be **an intelligence that grows with you.**
+
+**Nomi is building the foundation for that future.**
+
+---
+
+# Ecosystem Architecture
+
+Nomi is designed as a **layered ecosystem**, where each service has a single responsibility.
 
 ```
 ┌─────────────────────────────────────────┐
 │           nomi-company (future)         │
-│       Organizational AI — Multi-agent   │
+│      Organizational AI — Multi-Agent    │
 ├─────────────────────────────────────────┤
 │               nomi-biseo                │
 │         Personal AI Assistant           │
@@ -23,109 +58,169 @@ Nomi is composed of three layers. Each layer is an independent service with a si
 └─────────────────────────────────────────┘
 ```
 
-| Repo | Role | Status |
-|------|------|--------|
-| [`nomi-shared`](https://github.com/nomi-labs/nomi-shared) | Shared types, interfaces & schemas | 🔨 Building |
-| [`nomi-core`](https://github.com/nomi-labs/nomi-core) | AI execution engine (NestJS Microservice) | 🔨 Building |
-| [`nomi-biseo`](https://github.com/nomi-labs/nomi-biseo) | Personal AI assistant | 📋 Planned |
-| [`nomi-company`](https://github.com/nomi-labs/nomi-company) | Multi-agent organizational AI | 🔮 Future |
+Each layer focuses on a different role in the system.
+
+### `nomi-core`
+
+The **AI execution engine**.
+
+Responsible for:
+
+* LLM communication
+* retries and reliability
+* structured output validation
+* usage and cost tracking
+
+All AI providers are accessed through this layer.
 
 ---
 
-## How It Works
+### `nomi-biseo`
 
-**nomi-core** is the execution backbone. It handles all LLM communication, retries, structured output validation, and cost tracking. No other layer talks to an AI provider directly.
+The **personal AI assistant**.
 
-**nomi-biseo** is the human-facing product. It knows the user — their goals, habits, tasks, and context. It defines *what* to do. Core defines *how* to execute it.
+It understands the user:
 
-**nomi-company** (future) is where AI operates like an organization — multiple agents with different roles collaborating to handle complex reasoning on behalf of the user.
+* goals
+* habits
+* tasks
+* personal context
+
+`nomi-biseo` decides **what needs to happen**.
+`nomi-core` executes **how the AI performs it**.
 
 ---
 
-## Local Development
+### `nomi-company` (Future)
 
-Run the entire Nomi ecosystem locally with a single command.
+A **multi-agent intelligence layer**.
+
+Specialized AI agents collaborate like a team to perform complex reasoning, planning, and decision-making.
+
+---
+
+# Repositories
+
+| Repository     | Purpose                                       | Status      |
+| -------------- | --------------------------------------------- | ----------- |
+| `nomi`         | Ecosystem documentation and local development | 🔨 Active   |
+| `nomi-shared`  | Shared types, schemas, and service contracts  | 🔨 Building |
+| `nomi-core`    | AI execution engine (NestJS microservice)     | 🔨 Building |
+| `nomi-biseo`   | Personal AI assistant                         | 📋 Planned  |
+| `nomi-company` | Multi-agent AI layer                          | 🔮 Future   |
+
+---
+
+# Roadmap
+
+Nomi is built in progressive phases.
+
+## Phase 1 — Foundation
+
+Build the AI infrastructure layer.
+
+* [x] Ecosystem architecture
+* [x] Repository structure
+* [ ] `nomi-shared` — shared interfaces and schemas
+* [ ] `nomi-core` MVP
+
+  * Gemini adapter
+  * structured output validation
+  * cost tracking
+
+---
+
+## Phase 2 — Product
+
+Launch the first personal AI assistant.
+
+* [ ] `nomi-biseo` MVP
+* [ ] authentication
+* [ ] conversational interface
+* [ ] memory system
+* [ ] local development environment
+
+Deployment:
+
+```
+nomi-core  → Railway
+nomi-biseo → Vercel
+```
+
+---
+
+## Phase 3 — Scale
+
+Expand the ecosystem.
+
+* [ ] multi-LLM provider support
+* [ ] cost budgets and alerts
+* [ ] multi-agent orchestration
+* [ ] advanced memory and reasoning
+
+---
+
+# Local Development
+
+Run the entire ecosystem locally.
 
 ```bash
-# Clone this repo
 git clone https://github.com/nomi-labs/nomi.git
 cd nomi
 
-# Copy environment variables
 cp .env.example .env
-# Fill in: GEMINI_API_KEY
+# Add GEMINI_API_KEY
 
-# Start everything
 docker compose up -d
 ```
 
-| Service | URL / Port |
-|---------|------------|
+Services:
+
+| Service    | Address               |
+| ---------- | --------------------- |
 | nomi-biseo | http://localhost:3000 |
-| nomi-core | TCP localhost:4000 |
-| PostgreSQL | localhost:5432 |
-| Redis | localhost:6379 |
+| nomi-core  | TCP localhost:4000    |
+| PostgreSQL | localhost:5432        |
+| Redis      | localhost:6379        |
 
 ---
 
-## Design Principles
+# Technology Stack
 
-- **One engine, multiple products** — nomi-core powers everything, stays infrastructure-only
-- **Memory is not optional** — context and personalization are first-class citizens
-- **Every AI call is traceable** — user, feature, cost tracked on every request
-- **Infrastructure is replaceable** — swap any LLM provider without touching product logic
-- **Simple for the user, disciplined in the architecture**
-
----
-
-## Roadmap
-
-### Phase 1 — Foundation
-- [x] Ecosystem architecture design
-- [x] Repository structure
-- [ ] `nomi-shared` — interfaces & schemas
-- [ ] `nomi-core` MVP — execution engine, Gemini adapter, cost tracking
-
-### Phase 2 — Product
-- [ ] `nomi-biseo` MVP — auth, chat, memory
-- [ ] Local docker-compose setup
-- [ ] Cloud deployment (nomi-core → Railway, nomi-biseo → Vercel)
-
-### Phase 3 — Scale
-- [ ] Multiple LLM provider support
-- [ ] Cost budget & alerts
-- [ ] `nomi-company` — multi-agent orchestration
+| Layer             | Technology            |
+| ----------------- | --------------------- |
+| Language          | TypeScript            |
+| Framework         | NestJS                |
+| AI SDK            | Vercel AI SDK         |
+| LLM               | Google Gemini         |
+| Schema Validation | Zod                   |
+| Database          | PostgreSQL + pgvector |
+| Cache             | Redis                 |
+| Local Dev         | Docker Compose        |
 
 ---
 
-## Tech Stack
+# Design Principles
 
-| Layer | Technology |
-|-------|------------|
-| Language | TypeScript |
-| Framework | NestJS |
-| AI SDK | Vercel AI SDK |
-| Primary LLM | Google Gemini |
-| Schema Validation | Zod |
-| Database | PostgreSQL + pgvector |
-| Cache | Redis |
-| Local Dev | Docker Compose |
+Nomi is built with long-term architectural discipline.
 
----
+**Single AI Engine**
+One execution engine powers the ecosystem.
 
-## Repository Structure
+**Memory-First AI**
+Context and personalization are first-class citizens.
 
-```
-github.com/nomi-labs/
-├── nomi          ← You are here (docs + local dev)
-├── nomi-shared   ← Shared contracts between all services
-├── nomi-core     ← AI execution microservice
-├── nomi-biseo    ← Personal assistant application
-└── nomi-company  ← Multi-agent layer (future)
-```
+**Full Observability**
+Every AI request is traceable — user, feature, and cost.
+
+**Provider Independence**
+LLM providers can be swapped without affecting product logic.
+
+**User Simplicity**
+Complex infrastructure, simple experience.
 
 ---
 
 <p align="center">
-  Built with intention by <a href="https://github.com/nomi-labs">nomi-labs</a>
+Built with intention by <b>nomi-labs</b>
 </p>
