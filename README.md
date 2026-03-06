@@ -1,49 +1,48 @@
+<div align="center">
+
 # Nomi
 
-> **AI for Everyone — Personal intelligence that truly knows you.**
+**Personal intelligence that truly knows you.**
 
-Nomi is an AI ecosystem built around one belief:
+An AI ecosystem for building persistent, context-aware personal assistants
+that remember, learn, and evolve with every user.
 
-**Every person deserves a personal AI that understands them.**
-
-Not a chatbot that resets every conversation.
-Not a generic assistant.
-
-But an intelligence that **remembers, learns, and grows with you over time.**
+</div>
 
 ---
 
-# Vision
+## Table of Contents
 
-The future of AI is not one super-intelligence.
+- [Vision](#vision)
+- [Architecture](#architecture)
+- [Repositories](#repositories)
+- [Roadmap](#roadmap)
+- [Getting Started](#getting-started)
+- [Technology Stack](#technology-stack)
+- [Design Principles](#design-principles)
 
-It is **billions of personal intelligences — one for every human.**
+---
 
-An AI that understands your life, remembers your context, and evolves with you.
+## Vision
 
-Today's assistants forget everything.
-Every conversation starts from zero.
+Today's AI assistants are stateless — every conversation starts from zero. Nomi takes a fundamentally different approach.
 
-We believe AI should be different.
+We are building the infrastructure for **persistent personal AI**: an intelligence layer that retains context, understands user goals, and becomes more valuable over time.
 
 A personal AI should:
 
-* remember what matters to you
-* understand your goals and habits
-* learn from your decisions
-* become more useful over time
+- **Remember** what matters to the user
+- **Understand** goals, habits, and preferences
+- **Learn** from past decisions and interactions
+- **Improve** continuously through accumulated context
 
-AI should not be something you occasionally ask questions to.
-
-It should be **an intelligence that grows with you.**
-
-**Nomi is building the foundation for that future.**
+Nomi is the foundation for that future — not a single product, but an ecosystem designed to power billions of personal intelligences.
 
 ---
 
-# Ecosystem Architecture
+## Architecture
 
-Nomi is designed as a **layered ecosystem**, where each service has a single responsibility.
+Nomi follows a **layered architecture** with clear separation of concerns. Each service has a single responsibility and communicates through well-defined contracts.
 
 ```
 ┌─────────────────────────────────────────┐
@@ -58,169 +57,143 @@ Nomi is designed as a **layered ecosystem**, where each service has a single res
 └─────────────────────────────────────────┘
 ```
 
-Each layer focuses on a different role in the system.
+### nomi-core — AI Execution Engine
 
-### `nomi-core`
+The unified runtime for all AI operations.
 
-The **AI execution engine**.
+- LLM provider communication and abstraction
+- Retry logic and fault tolerance
+- Structured output validation
+- Usage tracking and cost accounting
 
-Responsible for:
+All AI providers are accessed exclusively through this layer, ensuring consistency and observability across the ecosystem.
 
-* LLM communication
-* retries and reliability
-* structured output validation
-* usage and cost tracking
+### nomi-biseo — Personal AI Assistant
 
-All AI providers are accessed through this layer.
+The product layer that understands the user.
 
----
+- Goals, habits, tasks, and personal context
+- Conversational interface and memory management
 
-### `nomi-biseo`
+**nomi-biseo** determines *what* needs to happen. **nomi-core** handles *how* the AI executes it.
 
-The **personal AI assistant**.
+### nomi-company — Multi-Agent Intelligence *(Future)*
 
-It understands the user:
-
-* goals
-* habits
-* tasks
-* personal context
-
-`nomi-biseo` decides **what needs to happen**.
-`nomi-core` executes **how the AI performs it**.
+An organizational AI layer where specialized agents collaborate to perform complex reasoning, planning, and decision-making at scale.
 
 ---
 
-### `nomi-company` (Future)
+## Repositories
 
-A **multi-agent intelligence layer**.
-
-Specialized AI agents collaborate like a team to perform complex reasoning, planning, and decision-making.
-
----
-
-# Repositories
-
-| Repository     | Purpose                                       | Status      |
-| -------------- | --------------------------------------------- | ----------- |
-| `nomi`         | Ecosystem documentation and local development | 🔨 Active   |
-| `nomi-shared`  | Shared types, schemas, and service contracts  | 🔨 Building |
-| `nomi-core`    | AI execution engine (NestJS microservice)     | 🔨 Building |
-| `nomi-biseo`   | Personal AI assistant                         | 📋 Planned  |
-| `nomi-company` | Multi-agent AI layer                          | 🔮 Future   |
+| Repository     | Purpose                                      | Status       |
+| -------------- | -------------------------------------------- | ------------ |
+| `nomi`         | Ecosystem documentation and local development | 🔨 Active    |
+| `nomi-shared`  | Shared types, schemas, and service contracts | 🔨 Building  |
+| `nomi-core`    | AI execution engine (NestJS microservice)    | 🔨 Building  |
+| `nomi-biseo`   | Personal AI assistant                        | 📋 Planned   |
+| `nomi-company` | Multi-agent AI layer                         | 🔮 Future    |
 
 ---
 
-# Roadmap
+## Roadmap
 
-Nomi is built in progressive phases.
+### Phase 1 — Foundation
 
-## Phase 1 — Foundation
+Build the core AI infrastructure.
 
-Build the AI infrastructure layer.
+- [x] Ecosystem architecture
+- [x] Repository structure
+- [ ] `nomi-shared` — shared interfaces and schemas
+- [ ] `nomi-core` MVP
+  - Gemini adapter
+  - Structured output validation
+  - Cost tracking
 
-* [x] Ecosystem architecture
-* [x] Repository structure
-* [ ] `nomi-shared` — shared interfaces and schemas
-* [ ] `nomi-core` MVP
-
-  * Gemini adapter
-  * structured output validation
-  * cost tracking
-
----
-
-## Phase 2 — Product
+### Phase 2 — Product
 
 Launch the first personal AI assistant.
 
-* [ ] `nomi-biseo` MVP
-* [ ] authentication
-* [ ] conversational interface
-* [ ] memory system
-* [ ] local development environment
+- [ ] `nomi-biseo` MVP
+- [ ] Authentication
+- [ ] Conversational interface
+- [ ] Memory system
+- [ ] Local development environment
 
-Deployment:
+**Deployment targets:**
 
-```
-nomi-core  → Railway
-nomi-biseo → Vercel
-```
+| Service      | Platform |
+| ------------ | -------- |
+| `nomi-core`  | Railway  |
+| `nomi-biseo` | Vercel   |
 
----
+### Phase 3 — Scale
 
-## Phase 3 — Scale
+Expand capabilities across the ecosystem.
 
-Expand the ecosystem.
-
-* [ ] multi-LLM provider support
-* [ ] cost budgets and alerts
-* [ ] multi-agent orchestration
-* [ ] advanced memory and reasoning
+- [ ] Multi-LLM provider support
+- [ ] Cost budgets and alerts
+- [ ] Multi-agent orchestration
+- [ ] Advanced memory and reasoning
 
 ---
 
-# Local Development
+## Getting Started
 
-Run the entire ecosystem locally.
+### Prerequisites
+
+- [Docker](https://www.docker.com/) and Docker Compose
+- A valid `GEMINI_API_KEY`
+
+### Setup
 
 ```bash
 git clone https://github.com/nomi-labs/nomi.git
 cd nomi
 
 cp .env.example .env
-# Add GEMINI_API_KEY
+# Set your GEMINI_API_KEY in the .env file
 
 docker compose up -d
 ```
 
-Services:
+### Services
 
-| Service    | Address               |
-| ---------- | --------------------- |
-| nomi-biseo | http://localhost:3000 |
-| nomi-core  | TCP localhost:4000    |
-| PostgreSQL | localhost:5432        |
-| Redis      | localhost:6379        |
-
----
-
-# Technology Stack
-
-| Layer             | Technology            |
-| ----------------- | --------------------- |
-| Language          | TypeScript            |
-| Framework         | NestJS                |
-| AI SDK            | Vercel AI SDK         |
-| LLM               | Google Gemini         |
-| Schema Validation | Zod                   |
-| Database          | PostgreSQL + pgvector |
-| Cache             | Redis                 |
-| Local Dev         | Docker Compose        |
+| Service      | Address                 |
+| ------------ | ----------------------- |
+| nomi-biseo   | `http://localhost:3000`  |
+| nomi-core    | `TCP localhost:4000`    |
+| PostgreSQL   | `localhost:5432`        |
+| Redis        | `localhost:6379`        |
 
 ---
 
-# Design Principles
+## Technology Stack
 
-Nomi is built with long-term architectural discipline.
+| Layer              | Technology             |
+| ------------------ | ---------------------- |
+| Language           | TypeScript             |
+| Framework          | NestJS                 |
+| AI SDK             | Vercel AI SDK          |
+| LLM Provider       | Google Gemini          |
+| Schema Validation  | Zod                    |
+| Database           | PostgreSQL + pgvector  |
+| Cache              | Redis                  |
+| Local Development  | Docker Compose         |
 
-**Single AI Engine**
-One execution engine powers the ecosystem.
+---
 
-**Memory-First AI**
-Context and personalization are first-class citizens.
+## Design Principles
 
-**Full Observability**
-Every AI request is traceable — user, feature, and cost.
-
-**Provider Independence**
-LLM providers can be swapped without affecting product logic.
-
-**User Simplicity**
-Complex infrastructure, simple experience.
+| Principle                  | Description                                                              |
+| -------------------------- | ------------------------------------------------------------------------ |
+| **Single AI Engine**       | One execution engine powers the entire ecosystem.                        |
+| **Memory-First AI**        | Context and personalization are first-class architectural concerns.       |
+| **Full Observability**     | Every AI request is traceable by user, feature, and cost.                |
+| **Provider Independence**  | LLM providers can be swapped without affecting product logic.            |
+| **User Simplicity**        | Complex infrastructure, simple experience.                               |
 
 ---
 
 <p align="center">
-Built with intention by <b>nomi-labs</b>
+Built with intention by <strong>nomi-labs</strong>
 </p>
